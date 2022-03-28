@@ -1,0 +1,17 @@
+<template>
+    <lightning-card title="progress bar">
+        <div class="slds-p-around_medium">
+            <lightning-button label="Execute Batch" title="Non-primary action" onclick={exeBatch}
+                class="slds-m-left_x-small"></lightning-button>
+        </div>
+        <div>
+
+        </div>
+        <div style="margin-left: 2%;">
+            <lightning-progress-bar size="medium" value={progress} variant="circular"></lightning-progress-bar>
+        </div>
+        <div class="slds-text-align--center slds-text-title" style="color:forestgreen;">
+            {processStatus}
+        </div>
+    </lightning-card>
+</template>
