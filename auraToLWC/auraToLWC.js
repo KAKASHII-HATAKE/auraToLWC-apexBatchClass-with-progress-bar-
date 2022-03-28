@@ -18,7 +18,7 @@ export default class AuraToLWC extends LightningElement {
        EXE_BATCH().then(Response=>{
            this.id=Response;
            console.log('got this response  ',Response);
-           this.progressHandler(Response);
+           this.progressHandler();
        }).catch(error=>{
            console.log('Error in exeBatch : '+error.body.message);
        })
@@ -26,7 +26,7 @@ export default class AuraToLWC extends LightningElement {
        
     }
 
-    progressHandler(res){
+    progressHandler(){
         console.log('progress handler called');
         console.log('responce id :',this.id);
         
@@ -34,7 +34,7 @@ export default class AuraToLWC extends LightningElement {
             this.TotalJobItems=response.TotalJobItems;
             this.JobItemsProcessed=response.JobItemsProcessed;
             if(response.JobItemsProcessed!=null){
-               // this.progress=(response.JobItemsProcessed / response.TotalJobItems) * 100;
+               // this.progress=(response.JobItemsProcessed / response.TotalJobItems) * 100;  //condition if required
                 this.progressBar();
             }
             
