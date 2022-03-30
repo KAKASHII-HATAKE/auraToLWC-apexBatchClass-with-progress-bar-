@@ -21,6 +21,7 @@ export default class AuraToLWC extends LightningElement {
                this.processStatus=data.Status;
                console.log(' AsyncBatch ',data);
                console.log(' AsyncBatch ',data.Status);
+               this.progressBar();
            }
            if(error)
            {
@@ -66,18 +67,23 @@ export default class AuraToLWC extends LightningElement {
 //     }
 
     progressBar() {
+        if(this.JobItemsProcessed!=null){
+
+            this.progress=(this.JobItemsProcessed / this.TotalJobItems) * 100;
+
+        }
         
-        this._interval = setInterval(() => {
-            this.progress = this.progress + this.JobItemsProcessed;
-            this.processStatus = 'Processing => ' + this.progress + ''+this.TotalJobItems;
-            if(this.JobItemsProcessed === this.TotalJobItems) {
-                clearInterval(this._interval);
-                this.processStatus = 'Completed';
-            }
-            else {
-                clearInterval(this._interval);
-                this.processStatus = 'Failed';
-            }
-        }, 300);
+        // this._interval = setInterval(() => {
+        //     this.progress = this.progress + this.JobItemsProcessed;
+        //     this.processStatus = 'Processing => ' + this.progress + ''+this.TotalJobItems;
+        //     if(this.JobItemsProcessed === this.TotalJobItems) {
+        //         clearInterval(this._interval);
+        //         this.processStatus = 'Completed';
+        //     }
+        //     else {
+        //         clearInterval(this._interval);
+        //         this.processStatus = 'Failed';
+        //     }
+        // }, 300);
 }
 }
