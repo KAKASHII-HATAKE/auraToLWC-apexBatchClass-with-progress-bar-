@@ -38,50 +38,13 @@ export default class AuraToLWC extends LightningElement {
 
         }
 
-
-
-
-//     }
-
-//    async progressHandler(res){
-//         console.log('progress handler called');
-//         console.log('responce id :',this.id);
-        
-//       await  BATCH_STATUS({jobID:res}).then(response=>{
-//             this.TotalJobItems= response.TotalJobItems;
-//             this.JobItemsProcessed=response.JobItemsProcessed;
-//             if(response.JobItemsProcessed!=null){
-//                // this.progress=(response.JobItemsProcessed / response.TotalJobItems) * 100;
-//                 this.progressBar();
-//             }
-            
-//             console.log('total job item : ',response.TotalJobItems);
-//             console.log('job item processed : ',response.JobItemsProcessed);
-//         }).catch(error=>{
-//             console.log('Error in progressHandler : '+error.body.message);
-//         })
-        
-//     }
-
     progressBar() {
         refreshApex(this.wiredList);
         if(this.JobItemsProcessed!=null){
 
             this.progress=(this.JobItemsProcessed / this.TotalJobItems) * 100;
 
-        }
+          }
         
-        // this._interval = setInterval(() => {
-        //     this.progress = this.progress + this.JobItemsProcessed;
-        //     this.processStatus = 'Processing => ' + this.progress + ''+this.TotalJobItems;
-        //     if(this.JobItemsProcessed === this.TotalJobItems) {
-        //         clearInterval(this._interval);
-        //         this.processStatus = 'Completed';
-        //     }
-        //     else {
-        //         clearInterval(this._interval);
-        //         this.processStatus = 'Failed';
-        //     }
-        // }, 300);
-}
+       }
 }
