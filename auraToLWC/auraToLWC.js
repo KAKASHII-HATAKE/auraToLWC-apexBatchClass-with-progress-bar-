@@ -1,7 +1,7 @@
 import { LightningElement,track, wire } from 'lwc';
 import EXE_BATCH from '@salesforce/apex/BatchApexProgressIndicatorController.executeBatchJob';
 import BATCH_STATUS from '@salesforce/apex/BatchApexProgressIndicatorController.getBatchJobStatus';
-
+import { refreshApex } from '@salesforce/apex';
 export default class AuraToLWC extends LightningElement {
 
     @track progress=0;
@@ -12,23 +12,20 @@ export default class AuraToLWC extends LightningElement {
 
 
        @wire(BATCH_STATUS,{jobID:'$id'})
-       myData({data,error})
-       {
-           if(data)
-           {
-               this.JobItemsProcessed=data.JobItemsProcessed;
-               this.TotalJobItems=data.TotalJobItems;
-               this.processStatus=data.Status;
-               console.log(' AsyncBatch ',data);
-               console.log(' AsyncBatch ',data.Status);
+       accList(result) {
+        this.wiredList = result;
+    
+        if (result.data) {
+            this.JobItemsProcessed = result.data.JobItemsProcessed;
+            this.TotalJobItems=result.data.TotalJobItems;
+            this.processStatus=result.data.Status;
+               console.log(' AsyncBatch ',result.data);
+               console.log(' AsyncBatch ',result.data.Status);
                this.progressBar();
-           }
-           if(error)
-           {
-               console.error(error);
-           }
-       }
-
+        } else if (result.error) {
+          console.error(result.error);
+        }
+      }
        async  exeBatch()
        {
         await  EXE_BATCH().then(Response=>{
@@ -67,6 +64,7 @@ export default class AuraToLWC extends LightningElement {
 //     }
 
     progressBar() {
+        refreshApex(this.wiredList);
         if(this.JobItemsProcessed!=null){
 
             this.progress=(this.JobItemsProcessed / this.TotalJobItems) * 100;
