@@ -1,10 +1,10 @@
 global with sharing class sampleBatchApex implements Database.Batchable<sObject> {
-    private static String query='Select Id,Name,industry,website,phone from Account';
-    private static String whereClause='';
+   // private static String query='Select Id,Name,industry,website,phone from Account';
+   // private static String whereClause='where industry=Energy';
 
 
     global Database.QueryLocator start(Database.BatchableContext BC){
-      
+      String query='Select Id,Name,industry,website,phone from Account where industry=\'Energy\'';
       return Database.getQueryLocator(query);
     }
 
@@ -15,7 +15,6 @@ global with sharing class sampleBatchApex implements Database.Batchable<sObject>
       for(Account s:scope){
           if(s.Industry=='Energy')
           {
-              s.Website='www.agriculturenergy.com';
               s.Phone='00000000';
               op.add(s);
           }
